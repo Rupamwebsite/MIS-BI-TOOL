@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +11,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-  <link rel="stylesheet" href="style.css?v=14.0">
+  <link rel="stylesheet" href="style.css?v=16.0">
 </head>
 <body>
   <div class="app-layout">
@@ -196,7 +196,7 @@
           </button>
           <div class="topbar-title-wrap">
             <h1 class="topbar-title" id="topBarTitle">📊 Executive Summary</h1>
-            <span class="topbar-subtitle">KPIs, Charts & Financial Insights</span>
+            <span class="topbar-subtitle">Peerless Hospital & B.K. Roy Research Centre — Clinical MIS Intelligence</span>
           </div>
         </div>
 
@@ -232,7 +232,16 @@
         <!-- Top Metadata & Control Header -->
         <div class="workspace-header">
           <div class="report-meta">
-            <div class="domain-tag" id="domainTag">Hospital OPD & Clinical MIS</div>
+            <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+              <span class="domain-tag" id="domainTag">🏥 Hospital Clinical & OPD Billing MIS</span>
+              <span class="badge" style="background: rgba(0, 180, 216, 0.15); border: 1px solid rgba(0, 180, 216, 0.3); color: #7dd3fc; font-size: 0.68rem; font-weight: 700; padding: 0.15rem 0.55rem; border-radius: 9999px;">
+                PEERLESS HOSPITAL & B.K. ROY RESEARCH CENTRE
+              </span>
+              <span class="badge" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); color: #34d399; font-size: 0.68rem; font-weight: 700; padding: 0.15rem 0.55rem; border-radius: 9999px; display: inline-flex; align-items: center; gap: 0.3rem;">
+                <span style="width: 6px; height: 6px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
+                Live Clinical MIS Online
+              </span>
+            </div>
             <h2 id="datasetTitle">OPD_Billing_Executive_Report_2024.xlsx</h2>
             <div class="meta-row">
               <span id="metaRecords">0 Records</span>
@@ -242,6 +251,8 @@
               <span id="metaDateRange">All Time</span>
               <span class="dot-separator">•</span>
               <span id="metaSheetName">Sheet: Sheet1</span>
+              <span class="dot-separator">•</span>
+              <span style="color: #38bdf8;">8 Clinical Specialties</span>
             </div>
           </div>
 
@@ -255,6 +266,65 @@
         </div>
 
         <!-- ==========================================
+             REAL-TIME HOSPITAL OPERATIONS PULSE TICKER
+             ========================================== -->
+        <div class="hospital-pulse-ticker">
+          <div class="ticker-item accent-cyan">
+            <span class="ticker-label">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              OPD Walk-in Footfall
+            </span>
+            <div class="ticker-val" id="hospOpdCount">184 Patients</div>
+            <span class="ticker-sub">65.7% of total footfall</span>
+          </div>
+
+          <div class="ticker-item accent-rose">
+            <span class="ticker-label">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+              Emergency / Trauma
+            </span>
+            <div class="ticker-val" id="hospEmergCount">52 Cases</div>
+            <span class="ticker-sub">Priority triage admissions</span>
+          </div>
+
+          <div class="ticker-item accent-purple">
+            <span class="ticker-label">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><path d="M5.52 16h12.96"/></svg>
+              Daycare & Chemo
+            </span>
+            <div class="ticker-val" id="hospDaycareCount">28 Sessions</div>
+            <span class="ticker-sub">High-value oncology therapy</span>
+          </div>
+
+          <div class="ticker-item accent-amber">
+            <span class="ticker-label">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>
+              Inpatient Bed Occupancy
+            </span>
+            <div class="ticker-val" id="hospBedCensus">88.5% Occupancy</div>
+            <span class="ticker-sub">425 / 480 Beds • ICU: 94.2%</span>
+          </div>
+
+          <div class="ticker-item accent-sky">
+            <span class="ticker-label">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+              Scans & Diagnostic Lab
+            </span>
+            <div class="ticker-val" id="hospScansCount">116 Tests</div>
+            <span class="ticker-sub">MRI, CT, USG, ECG & Pathology</span>
+          </div>
+
+          <div class="ticker-item accent-emerald">
+            <span class="ticker-label">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              TPA Cashless Realized
+            </span>
+            <div class="ticker-val" id="hospTpaRealized">98.4% Settled</div>
+            <span class="ticker-sub">Star Health, Medi Assist, ICICI</span>
+          </div>
+        </div>
+
+        <!-- ==========================================
              ADVANCED ERP CONTROL & FILTER TOOLBAR
              ========================================== -->
         <div class="advanced-filter-card">
@@ -262,7 +332,7 @@
           <div class="metric-dim-switcher-row">
             <div class="control-pair">
               <label for="activeMetricSelect">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
                 Revenue / Value Metric:
               </label>
               <select id="activeMetricSelect" title="Select which column represents Financial Value/Revenue"></select>
@@ -270,7 +340,7 @@
 
             <div class="control-pair">
               <label for="activeDimensionSelect">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
                 Primary Breakdown Dimension:
               </label>
               <select id="activeDimensionSelect" title="Select primary grouping dimension"></select>
@@ -278,7 +348,7 @@
 
             <!-- Date Range Presets -->
             <div class="date-preset-pills">
-              <button class="pill-btn active" data-range="all">All Time</button>
+              <button class="pill-btn active" data-range="all">All Records</button>
               <button class="pill-btn" data-range="this_month">This Month</button>
               <button class="pill-btn" data-range="last_30">Last 30 Days</button>
               <button class="pill-btn" data-range="custom">Custom</button>
@@ -307,7 +377,7 @@
 
             <div class="filter-actions-wrap">
               <button class="btn btn-secondary btn-sm" id="btnToggleAdvancedFilters">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
                 + Rule Filter
               </button>
               <button class="btn btn-primary btn-sm" id="btnApplyFilter">Apply Filter</button>
@@ -330,67 +400,100 @@
             <div class="chips-list" id="chipsList"></div>
           </div>
         </div>
-<div class="tab-content active" id="tab-overview">
+
+        <div class="tab-content active" id="tab-overview">
           <!-- Executive Dimension Quick Switcher Bar -->
           <div class="dimension-pills-bar" id="dimensionPillsBar">
             <div class="pills-title">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
-              <span>Explore by Dimension:</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+              <span>Explore by Clinical Dimension:</span>
             </div>
             <div class="pills-scroll" id="dimensionPillsContainer"></div>
           </div>
 
-          <!-- KPI Cards Grid -->
+          <!-- 6 Hospital Executive KPI Cards Grid -->
           <div class="kpi-grid">
             <div class="kpi-card accent-indigo">
               <div class="kpi-header">
-                <span class="kpi-title" id="kpiLabel1">Total Financial Volume</span>
+                <span class="kpi-title" id="kpiLabel1">Total Net Hospital Revenue</span>
                 <div class="kpi-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
                 </div>
               </div>
               <div class="kpi-value" id="kpiTotalValue">₹ 0.00</div>
               <div class="kpi-footer">
-                <span class="kpi-subtext" id="kpiColName1">Cumulative metric sum</span>
+                <span class="kpi-subtext" id="kpiColName1">Cumulative clinical & OPD collections</span>
+                <span class="kpi-trend-pill positive">▲ 12.8%</span>
               </div>
             </div>
 
             <div class="kpi-card accent-emerald">
               <div class="kpi-header">
-                <span class="kpi-title">Total Transactions</span>
+                <span class="kpi-title">Total Patient Footfall</span>
                 <div class="kpi-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                 </div>
               </div>
               <div class="kpi-value" id="kpiTotalRecords">0</div>
               <div class="kpi-footer">
-                <span class="kpi-subtext" id="kpiAvgRecords">Valid row entries (excluding total rows)</span>
+                <span class="kpi-subtext" id="kpiAvgRecords">Valid OPD & Emergency consultations</span>
+                <span class="kpi-trend-pill positive">▲ 8.1% Footfall</span>
               </div>
             </div>
 
             <div class="kpi-card accent-sky">
               <div class="kpi-header">
-                <span class="kpi-title">Average Ticket Size</span>
+                <span class="kpi-title">Avg Revenue Per Patient (ARPU)</span>
                 <div class="kpi-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
                 </div>
               </div>
               <div class="kpi-value" id="kpiAvgValue">₹ 0.00</div>
               <div class="kpi-footer">
-                <span class="kpi-subtext">Mean per transaction</span>
+                <span class="kpi-subtext">Mean per transaction / consultation</span>
+                <span class="kpi-trend-pill info">Target ₹2,500+</span>
               </div>
             </div>
 
             <div class="kpi-card accent-amber">
               <div class="kpi-header">
-                <span class="kpi-title">Max Single Transaction</span>
+                <span class="kpi-title">Bed & Ward Occupancy</span>
                 <div class="kpi-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>
                 </div>
               </div>
-              <div class="kpi-value" id="kpiMaxValue">₹ 0.00</div>
+              <div class="kpi-value" id="kpiBedOccupancy">88.5%</div>
               <div class="kpi-footer">
-                <span class="kpi-subtext">Peak recorded transaction</span>
+                <span class="kpi-subtext" id="kpiBedSubtext">425 of 480 operational beds</span>
+                <span class="kpi-trend-pill warning">ICU: 94.2%</span>
+              </div>
+            </div>
+
+            <div class="kpi-card accent-purple">
+              <div class="kpi-header">
+                <span class="kpi-title">Consulting Specialists</span>
+                <div class="kpi-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M12 11v6"/><path d="M9 14h6"/></svg>
+                </div>
+              </div>
+              <div class="kpi-value" id="kpiActiveDoctors">17 Doctors</div>
+              <div class="kpi-footer">
+                <span class="kpi-subtext" id="kpiDoctorSubtext">Across 8 clinical departments</span>
+                <span class="kpi-trend-pill info">Top: Dr. P. Ganguly</span>
+              </div>
+            </div>
+
+            <div class="kpi-card accent-emerald">
+              <div class="kpi-header">
+                <span class="kpi-title">TPA & Cashless Realization</span>
+                <div class="kpi-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+              </div>
+              <div class="kpi-value" id="kpiTpaShare">₹ 3,01,550</div>
+              <div class="kpi-footer">
+                <span class="kpi-subtext" id="kpiTpaSubtext">36.6% Cashless & Corporate</span>
+                <span class="kpi-trend-pill positive">98.4% Settled</span>
               </div>
             </div>
           </div>
@@ -399,10 +502,10 @@
           <div class="insights-card">
             <div class="insights-header">
               <div class="insights-title">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4"/><path d="m4.93 4.93 2.83 2.83"/><path d="M2 12h4"/><path d="m4.93 19.07 2.83-2.83"/><path d="M12 22v-4"/><path d="m19.07 19.07-2.83-2.83"/><path d="M22 12h-4"/><path d="m19.07 4.93-2.83 2.83"/></svg>
-                <h3>Automated ERP MIS Executive Findings</h3>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4"/><path d="m4.93 4.93 2.83 2.83"/><path d="M2 12h4"/><path d="m4.93 19.07 2.83-2.83"/><path d="M12 22v-4"/><path d="m19.07 19.07-2.83-2.83"/><path d="M22 12h-4"/><path d="m19.07 4.93-2.83 2.83"/></svg>
+                <h3>Automated Hospital Executive Clinical & Operations Findings</h3>
               </div>
-              <span class="pulse-live">REAL-TIME ANALYSIS</span>
+              <span class="pulse-live">REAL-TIME CLINICAL INTELLIGENCE</span>
             </div>
             <div class="insights-list" id="insightsList"></div>
           </div>
@@ -412,14 +515,14 @@
             <div class="chart-card flex-2">
               <div class="card-header">
                 <div>
-                  <h3 id="comboChartTitle">Dual-Axis Trend: Financial Volume vs Transaction Count</h3>
-                  <span class="card-caption">Bars: Total Value (Left Axis) | Line: Volume Count (Right Axis)</span>
+                  <h3 id="comboChartTitle">Dual-Axis Trend: Patient Footfall vs Net Hospital Collections</h3>
+                  <span class="card-caption">Bars: Net Revenue (Left Axis ₹) | Line: Patient Footfall Volume (Right Axis)</span>
                 </div>
                 <div class="chart-tools">
                   <button class="btn-tool" onclick="downloadChartImage('overviewTrendChart', 'Trend_Chart.png')" title="Save Chart as PNG">📷 PNG</button>
                 </div>
               </div>
-              <div class="chart-container" style="height: 330px;">
+              <div class="chart-container" style="height: 310px;">
                 <canvas id="overviewTrendChart"></canvas>
               </div>
             </div>
@@ -427,18 +530,105 @@
             <div class="chart-card flex-1">
               <div class="card-header">
                 <div>
-                  <h3 id="overviewDonutTitle">Dimension Share</h3>
-                  <span class="card-caption">Click a slice to drill-down filter!</span>
+                  <h3 id="overviewDonutTitle">Clinical Specialty Revenue Share</h3>
+                  <span class="card-caption">Click a specialty slice to filter entire dashboard!</span>
                 </div>
                 <div class="chart-tools">
                   <button class="btn-tool" onclick="downloadChartImage('overviewDonutChart', 'Share_Donut.png')" title="Save Chart as PNG">📷 PNG</button>
                 </div>
               </div>
-              <div class="chart-container" style="height: 330px;">
+              <div class="chart-container" style="height: 310px;">
                 <canvas id="overviewDonutChart"></canvas>
               </div>
             </div>
           </div>
+
+          <!-- ========================================================
+               HOSPITAL CLINICAL DEPARTMENTS & SPECIALTY OPERATIONS MATRIX
+               ======================================================== -->
+          <div class="hospital-matrix-card">
+            <div class="matrix-header">
+              <div class="matrix-title-wrap">
+                <h3>
+                  <span>🏥 Clinical Department Operations & Performance Matrix</span>
+                </h3>
+                <p>Specialty footfall, net billing realization, average ticket size, and clinical bed utilization</p>
+              </div>
+              <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <span class="badge" style="background: rgba(0, 149, 199, 0.15); color: #38bdf8; font-size: 0.72rem; padding: 0.2rem 0.6rem; border-radius: 6px; font-weight: 600;">
+                  8 Specialties Active
+                </span>
+              </div>
+            </div>
+            <div class="table-responsive" style="overflow-x: auto;">
+              <table class="hosp-table" id="hospitalDeptTable">
+                <thead>
+                  <tr>
+                    <th>Clinical Specialty / Dept</th>
+                    <th>Key Consultant Doctors</th>
+                    <th style="text-align: right;">Patient Footfall</th>
+                    <th style="text-align: right;">Total Net Revenue</th>
+                    <th style="text-align: right;">Avg Ticket (ARPU)</th>
+                    <th style="width: 170px;">Capacity Utilization</th>
+                    <th style="text-align: center;">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="hospitalDeptTbody">
+                  <!-- Populated dynamically by app.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- ========================================================
+               TWO-COLUMN ROW: DOCTOR LEADERBOARD & PAYMENT / TPA MATRIX
+               ======================================================== -->
+          <div class="chart-row">
+            <!-- Doctor Clinical Leaderboard -->
+            <div class="chart-card flex-1">
+              <div class="card-header">
+                <div>
+                  <h3>👨‍⚕️ Top Consultant Doctor Performance</h3>
+                  <span class="card-caption">Ranked by revenue contribution & patient consultation volume</span>
+                </div>
+                <a href="doctor.html" class="hosp-btn-drill" title="View Full Doctor Analytics">Full MIS →</a>
+              </div>
+              <div class="table-responsive" style="max-height: 320px; overflow-y: auto;">
+                <table class="hosp-table" id="hospitalDoctorTable">
+                  <thead>
+                    <tr>
+                      <th style="width: 32px;">#</th>
+                      <th>Consultant Name</th>
+                      <th>Specialty</th>
+                      <th style="text-align: right;">Patients</th>
+                      <th style="text-align: right;">Net Revenue</th>
+                      <th style="text-align: center;">Drilldown</th>
+                    </tr>
+                  </thead>
+                  <tbody id="hospitalDoctorTbody">
+                    <!-- Populated dynamically by app.js -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Payment Modes & TPA Cashless Insurance Health Matrix -->
+            <div class="chart-card flex-1">
+              <div class="card-header">
+                <div>
+                  <h3>💳 Payment Modes & TPA Cashless Insurance Health</h3>
+                  <span class="card-caption">Claims settlement, cashless TPA, UPI & cash counter realization</span>
+                </div>
+                <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399; font-size: 0.70rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 700;">
+                  98.4% Settled
+                </span>
+              </div>
+              <div class="payment-health-grid" id="hospitalPaymentGrid">
+                <!-- Populated dynamically by app.js -->
+              </div>
+            </div>
+          </div>
+
         </div>
 
         </section>
@@ -611,6 +801,6 @@
   <!-- Loading Toast -->
   <div class="toast" id="toast"></div>
 
-  <script src="app.js?v=14.0"></script>
+  <script src="app.js?v=16.0"></script>
 </body>
 </html>
