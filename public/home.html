@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🏥 Peerless Hospital | Peerless Hospital MIS Platform</title>
+  <meta name="description" content="Peerless Hospital & B.K. Roy Research Centre - Enterprise Clinical Intelligence Platform">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <link rel="stylesheet" href="style.css?v=15.3">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- ======================================
+         PEERLESS HOSPITAL SIDEBAR NAVIGATION
+         ====================================== -->
+    <aside class="app-sidebar" id="appSidebar">
+
+      <!-- Hospital Brand Logo -->
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-logo" id="sidebarBrandLogo" title="Peerless Hospital • Click to Expand / Collapse">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+          </svg>
+        </div>
+        <div class="sidebar-brand-text">
+          <div class="brand-name">PEERLESS <span>HOSPITAL</span></div>
+          <span class="brand-sub">B.K. Roy Research Centre</span>
+        </div>
+        <!-- Collapse Toggle inside brand header -->
+        <button class="sidebar-toggle" id="sidebarToggle" title="Toggle sidebar (Boro/Chhoto)" aria-label="Toggle sidebar">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- DB Status & Dataset Selector -->
+      <div class="sidebar-dataset-info">
+        <div class="sidebar-db-badge" id="dbStatusBadge" title="MySQL MIS_DB Status">
+          <span class="status-dot"></span>
+          <span class="db-name">MySQL: MIS_DB</span>
+          <span class="db-meta" id="dbMeta">Online</span>
+        </div>
+        <div class="dataset-select-wrap">
+          <select class="sidebar-dataset-select" id="activeDatasetSelect" aria-label="Select Dataset">
+            <option value="">Select a Dataset...</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="sidebar-nav" aria-label="Dashboard Navigation">
+
+        <!-- Upload / Home -->
+        <div class="sidebar-section-label">WORKSPACE</div>
+        <a href="home.html" class="sidebar-nav-item active" title="Home / Upload" id="navHome">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </span>
+          <span class="nav-label">Home / Upload</span>
+        </a>
+
+        <!-- Analytics Section -->
+        <div class="sidebar-section-label">ANALYTICS</div>
+
+        <a href="overview.html" class="sidebar-nav-item" title="Executive Summary" id="navOverview">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/>
+            </svg>
+          </span>
+          <span class="nav-label">Executive Summary</span>
+        </a>
+
+        <a href="doctor.html" class="sidebar-nav-item" title="Doctor MIS Analytics" id="navDoctor">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M12 11v6"/><path d="M9 14h6"/>
+            </svg>
+          </span>
+          <span class="nav-label">Doctor MIS Analytics</span>
+          <span class="nav-badge" id="doctorCountBadge">0</span>
+        </a>
+
+        <a href="charts.html" class="sidebar-nav-item" title="Visual Analytics Gallery" id="navCharts">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/>
+            </svg>
+          </span>
+          <span class="nav-label">Visual Analytics Gallery</span>
+        </a>
+
+        <a href="pivot.html" class="sidebar-nav-item" title="Dynamic Pivot Matrix" id="navPivot">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 3v18"/><path d="M3 12h18"/>
+            </svg>
+          </span>
+          <span class="nav-label">Dynamic Pivot Matrix</span>
+        </a>
+
+        <div class="sidebar-section-label">TOOLS</div>
+
+        <a href="ask-bi.html" class="sidebar-nav-item" title="Ask BI Copilot" id="navAskBi">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+            </svg>
+          </span>
+          <span class="nav-label">Ask BI Copilot</span>
+        </a>
+
+        <a href="builder.html" class="sidebar-nav-item" title="Visual Studio Builder" id="navBuilder">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+            </svg>
+          </span>
+          <span class="nav-label">Visual Studio Builder</span>
+        </a>
+
+        <a href="anomalies.html" class="sidebar-nav-item" title="Audit & Anomaly Watch" id="navAnomalies">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/>
+            </svg>
+          </span>
+          <span class="nav-label">Audit & Anomaly Watch</span>
+          <span class="nav-badge" id="anomalyCountBadge">0</span>
+        </a>
+
+        <a href="datagrid.html" class="sidebar-nav-item" title="Data Explorer" id="navDatagrid">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 3h18v18H3zM3 9h18M3 15h18M9 3v18M15 3v18"/>
+            </svg>
+          </span>
+          <span class="nav-label">Data Explorer</span>
+        </a>
+
+      </nav>
+
+      <!-- Sidebar Footer Actions -->
+      <div class="sidebar-footer">
+        <button class="sidebar-footer-btn btn-upload" id="btnOpenUploadModal" title="Upload New Excel / CSV Dataset">
+          <span class="nav-icon">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/>
+            </svg>
+          </span>
+          <span class="nav-label">Upload Excel File</span>
+        </button>
+        <div class="sidebar-footer-row">
+          <button class="sidebar-footer-btn btn-compact" id="btnQuickSample" title="Load Sample Hospital Dataset">
+            <span class="nav-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>
+              </svg>
+            </span>
+            <span class="nav-label">Sample</span>
+          </button>
+          <button class="sidebar-footer-btn btn-compact" id="themeToggle" title="Toggle Dark/Light Mode">
+            <span class="nav-icon">
+              <svg class="sun-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
+              </svg>
+            </span>
+            <span class="nav-label">Theme</span>
+          </button>
+        </div>
+      </div>
+
+    </aside>
+    <div class="app-main">
+      <!-- Top Context-Aware Action Bar -->
+      <header class="top-bar" id="topBar">
+        <div class="topbar-left">
+          <button class="topbar-toggle-btn" id="topbarSidebarToggle" title="Toggle Sidebar" aria-label="Toggle Sidebar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="9" x2="9" y1="3" y2="21"/>
+            </svg>
+          </button>
+          <button class="mobile-menu-btn" id="mobileMenuToggle" title="Open Menu" aria-label="Open Menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/>
+            </svg>
+          </button>
+          <div class="topbar-title-wrap">
+            <h1 class="topbar-title" id="topBarTitle">🏥 Peerless Hospital & B.K. Roy Research Centre</h1>
+            <span class="topbar-subtitle">Enterprise Clinical & Financial MIS Platform</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <span class="corp-status-chip success" title="MySQL MIS_DB Active" style="font-size: 0.72rem; padding: 0.32rem 0.65rem;">
+            ● MySQL: MIS_DB Active
+          </span>
+          <button type="button" class="btn btn-primary btn-sm" onclick="loadSampleDataset('hospital')" style="display: inline-flex; align-items: center; gap: 0.45rem; font-weight: 700; padding: 0.45rem 1rem; box-shadow: 0 2px 12px var(--primary-glow);" title="Instantly load pre-configured Hospital OPD Billing Dataset">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span>Load Hospital Demo</span>
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" id="themeToggleTop" onclick="toggleTheme()" title="Toggle Dark/Light Mode" style="padding: 0.45rem 0.65rem;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+      <main class="main-content">
+      <section class="corp-home-container" id="welcomeHero">
+
+        <!-- Clean Professional Page Title Bar -->
+        <div class="corp-page-header">
+          <div class="corp-page-header-left">
+            <h2 class="corp-page-heading">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" color="var(--primary)"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" x2="12" y1="12" y2="18"/><line x1="9" x2="15" y1="15" y2="15"/></svg>
+              Hospital Data Ingestion Hub
+            </h2>
+            <p class="corp-page-subtext">Upload raw hospital billing registers, clinical footfalls, or pharmacy ledgers into MySQL MIS_DB with automatic header detection.</p>
+          </div>
+          <div class="corp-page-header-right">
+            <span class="corp-card-badge" style="background: rgba(16, 185, 129, 0.12); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); font-weight: 700; padding: 0.25rem 0.6rem;">
+              ✓ Auto-Header Detection
+            </span>
+          </div>
+        </div>
+
+        <!-- PRIMARY INGESTION CARD -->
+        <div class="corp-card corp-ingestion-card">
+          <!-- Hidden File Input for Hero -->
+          <input type="file" id="fileInput" accept=".xlsx, .xls, .csv" style="display: none;" onclick="this.value=null;" onchange="if(this.files && this.files.length > 0) handleFileUpload(this.files[0]);">
+
+            <!-- Corporate Precision Dropzone (shown initially) -->
+            <div class="corp-dropzone-box" id="mainDropzone" onclick="const fi = document.getElementById('fileInput'); fi.value = ''; fi.click();">
+              <div class="corp-dz-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="12" x2="12" y1="12" y2="18"/>
+                  <line x1="9" x2="15" y1="15" y2="15"/>
+                </svg>
+              </div>
+              <h3 class="corp-dz-title">Drag & Drop Hospital Excel / CSV File</h3>
+              <p class="corp-dz-desc">Supports standard exports from HIS / HMIS, Tally Prime, SAP Healthcare, and Excel (.xlsx, .xls, .csv up to 100MB)</p>
+              
+              <div class="corp-dz-cta-row">
+                <button type="button" class="btn btn-primary" id="btnBrowseComputer" onclick="event.stopPropagation(); const fi = document.getElementById('fileInput'); fi.value = ''; fi.click();" style="display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.55rem 1.4rem; font-size: 0.82rem; font-weight: 700; border-radius: 7px; box-shadow: 0 4px 16px var(--primary-glow); transition: all 0.2s ease;">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="17 8 12 3 7 8"/>
+                    <line x1="12" x2="12" y1="3" y2="15"/>
+                  </svg>
+                  Browse Local Workstation
+                </button>
+              </div>
+
+              <div class="corp-dz-features-bar">
+                <span class="corp-dz-feat">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  Auto-Skips ERP Title Banners
+                </span>
+                <span class="corp-dz-feat">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  Merged Header Normalization
+                </span>
+                <span class="corp-dz-feat">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  Protects UHID & Phone IDs
+                </span>
+              </div>
+            </div>
+
+            <!-- Subtle One-Click Demo Bar -->
+            <div class="clean-sample-bar">
+              <span class="sample-bar-label">Need sample hospital data to test?</span>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="loadSampleDataset('hospital')" style="display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 600; font-size: 0.76rem; padding: 0.35rem 0.85rem; border-radius: 6px;">
+                <span>⚡ Load Hospital OPD Demo (15,000+ Records)</span>
+              </button>
+            </div>
+
+            <!-- Hero File Preview Panel (Shown when file is selected) -->
+            <div class="file-preview-panel" id="heroFilePreview" style="display: none; text-align: left; margin-top: 1.5rem; margin-bottom: 1.5rem;">
+              <div class="preview-meta-card">
+                <!-- Selected File Prominent Banner -->
+                <div class="preview-file-header">
+                  <div class="preview-file-icon">📊</div>
+                  <div class="preview-file-details">
+                    <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--primary); letter-spacing: 0.05em; margin-bottom: 2px;">Selected File:</div>
+                    <h4 id="heroFileName" style="font-size: 1.25rem; font-weight: 800; color: var(--text-main); word-break: break-all;">Filename.xlsx</h4>
+                    <div class="preview-tags" style="margin-top: 6px;">
+                      <span class="preview-tag" id="heroFileSize">0 KB</span>
+                      <span class="preview-tag" id="heroRowCount">0 Rows</span>
+                      <span class="preview-tag" id="heroColCount">0 Columns</span>
+                      <span class="preview-tag preview-tag-emerald" id="heroStatus">✓ Verified & Ready</span>
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-secondary btn-sm" id="btnHeroClearFile" onclick="clearSelectedFilePreview()" title="Choose another file" style="align-self: flex-start;">
+                    🔄 Change File
+                  </button>
+                </div>
+
+                <!-- Sheet Selector & Title Inputs -->
+                <div class="preview-inputs-grid">
+                  <div class="form-group">
+                    <label for="heroDatasetName">Report Title in MIS_DB:</label>
+                    <input type="text" id="heroDatasetName" placeholder="e.g. Hospital OPD Billing 2024">
+                  </div>
+                  <div class="form-group" id="heroSheetSelectGroup">
+                    <label for="heroSheetSelect">Target Excel Sheet:</label>
+                    <select id="heroSheetSelect">
+                      <option value="">Sheet1</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Column Badges Preview -->
+                <div class="preview-cols-section">
+                  <label>Detected Columns & Auto-Mapped Data Types:</label>
+                  <div class="preview-col-chips" id="heroColChips"></div>
+                </div>
+
+                <!-- First 5 Rows Table Preview -->
+                <div class="preview-table-section">
+                  <label>File Content Preview (First 5 Rows):</label>
+                  <div class="table-responsive preview-table-wrap">
+                    <table class="data-table" id="heroDataTable">
+                      <thead id="heroThead"></thead>
+                      <tbody id="heroTbody"></tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- Actions row -->
+                <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle);">
+                  <button type="button" class="btn btn-secondary" onclick="clearSelectedFilePreview()">Cancel</button>
+                  <button type="button" class="btn btn-primary" id="btnHeroSubmitUpload" style="padding: 0.7rem 1.6rem; font-size: 0.95rem; font-weight: 700; box-shadow: 0 4px 18px var(--primary-glow);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                      <polyline points="17 8 12 3 7 8"/>
+                      <line x1="12" x2="12" y1="3" y2="15"/>
+                    </svg>
+                    Import into MySQL MIS_DB
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hero Progress Pipeline (Shown during import on home screen) -->
+            <div class="in-modal-progress" id="heroProgressSection" style="display: none; text-align: left; margin-top: 1.5rem; margin-bottom: 1.5rem;">
+              <div class="preview-meta-card" style="padding: 1.75rem;">
+                <div class="import-header">
+                  <div class="import-icon-wrap" id="heroImportIconWrap">
+                    <svg class="import-file-svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                      <polyline points="14 2 14 8 20 8"/>
+                      <line x1="12" x2="12" y1="12" y2="18"/>
+                      <line x1="9" x2="15" y1="15" y2="15"/>
+                    </svg>
+                    <div class="import-success-svg" style="display: none;">
+                      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                        <polyline points="22 4 12 14.01 9 11.01"/>
+                      </svg>
+                    </div>
+                    <div class="import-error-svg" style="display: none;">
+                      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="15" y1="9" x2="9" y2="15"/>
+                        <line x1="9" y1="9" x2="15" y2="15"/>
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="import-header-info">
+                    <div class="import-file-title" id="heroImportFileName">Sample_Dataset.xlsx</div>
+                    <div class="import-file-sub">
+                      <span class="import-badge" id="heroImportFileSize">0 KB</span>
+                      <span class="import-status-text" id="heroImportStatusText">Uploading dataset to server...</span>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <div class="import-pct-badge" id="heroImportPercent">0%</div>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="clearSelectedFilePreview()" title="Cancel & Choose another file" style="padding: 0.35rem 0.75rem; font-size: 0.75rem; font-weight: 600;">
+                      🔄 Change
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Glowing Progress Bar Track -->
+                <div class="import-bar-container">
+                  <div class="import-bar-track">
+                    <div class="import-bar-fill" id="heroImportBarFill" style="width: 0%;">
+                      <div class="import-bar-shimmer"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Live Metrics Row -->
+                <div class="import-stats-row">
+                  <span class="import-bytes" id="heroImportBytes">0 KB of 0 KB</span>
+                  <span class="import-eta" id="heroImportEta">Connecting to MySQL MIS_DB...</span>
+                </div>
+
+                <!-- 4-Stage Stepper Pipeline -->
+                <div class="import-stepper" id="heroImportStepper">
+                  <div class="step-item active" id="hstep-upload">
+                    <div class="step-dot">
+                      <span class="step-number">1</span>
+                      <span class="step-check">✓</span>
+                    </div>
+                    <div class="step-label">Upload</div>
+                  </div>
+                  <div class="step-line" id="hline-1"></div>
+                  <div class="step-item" id="hstep-parse">
+                    <div class="step-dot">
+                      <span class="step-number">2</span>
+                      <span class="step-check">✓</span>
+                    </div>
+                    <div class="step-label">Smart Parse</div>
+                  </div>
+                  <div class="step-line" id="hline-2"></div>
+                  <div class="step-item" id="hstep-db">
+                    <div class="step-dot">
+                      <span class="step-number">3</span>
+                      <span class="step-check">✓</span>
+                    </div>
+                    <div class="step-label">MySQL DB</div>
+                  </div>
+                  <div class="step-line" id="hline-3"></div>
+                  <div class="step-item" id="hstep-analytics">
+                    <div class="step-dot">
+                      <span class="step-number">4</span>
+                      <span class="step-check">✓</span>
+                    </div>
+                    <div class="step-label">Dashboard</div>
+                  </div>
+                </div>
+
+                <!-- Real-Time Activity Log Terminal -->
+                <div class="import-log-box" style="margin-bottom: 1.25rem;">
+                  <div class="import-log-header">
+                    <span>PIPELINE ACTIVITY LOG</span>
+                    <span class="log-indicator"></span>
+                  </div>
+                  <div class="import-log-content" id="heroImportLogContent">
+                    <div class="log-entry">Waiting for pipeline trigger...</div>
+                  </div>
+                </div>
+
+                <!-- Completion Summary Card -->
+                <div class="import-complete-card" id="heroImportCompleteCard" style="display: none;">
+                  <div class="complete-header">
+                    <div class="complete-icon">🎉</div>
+                    <div class="complete-text">
+                      <h4>Dataset Successfully Imported!</h4>
+                      <p>All records verified & stored into MySQL MIS_DB</p>
+                    </div>
+                  </div>
+                  <div class="complete-kpi-row">
+                    <div class="kpi-mini">
+                      <span class="kpi-mini-val" id="heroCompTotalRows">0</span>
+                      <span class="kpi-mini-lbl">Total Rows</span>
+                    </div>
+                    <div class="kpi-mini">
+                      <span class="kpi-mini-val" id="heroCompTotalCols">0</span>
+                      <span class="kpi-mini-lbl">Columns</span>
+                    </div>
+                    <div class="kpi-mini">
+                      <span class="kpi-mini-val" id="heroCompDomain">MIS</span>
+                      <span class="kpi-mini-lbl">Domain</span>
+                    </div>
+                    <div class="kpi-mini">
+                      <span class="kpi-mini-val" id="heroCompTime">0s</span>
+                      <span class="kpi-mini-lbl">Speed</span>
+                    </div>
+                  </div>
+                  <div class="complete-actions">
+                    <a href="overview.html" class="btn btn-primary" id="heroBtnGoToDashboard" style="padding: 0.75rem 1.6rem; font-size: 0.95rem; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                      Explore Executive Dashboard →
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <!-- STORED DATASETS IN MYSQL MIS_DB CARD -->
+        <div class="corp-card" style="padding: 1.15rem 1.4rem; margin-top: 1rem;">
+          <div class="corp-card-header" style="margin-bottom: 0.85rem; padding-bottom: 0.65rem;">
+            <div class="corp-card-title-wrap">
+              <h3 style="font-size: 0.98rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" color="#10b981"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                Archived Datasets in MySQL MIS_DB
+              </h3>
+              <p style="font-size: 0.76rem;">Datasets currently stored and ready for deep clinical analytics</p>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.45rem;">
+              <span class="corp-card-badge" id="corpHomeDsCount" style="font-size: 0.7rem; padding: 0.2rem 0.5rem;">Active</span>
+              <button class="btn btn-secondary btn-sm" onclick="fetchDatasetsList()" title="Refresh Datasets" style="padding: 0.2rem 0.55rem; font-size: 0.72rem;">
+                ↻ Refresh
+              </button>
+            </div>
+          </div>
+          <div id="corpDatasetsListContainer">
+            <div style="font-size: 0.76rem; color: var(--text-muted); padding: 0.65rem; text-align: center;">
+              Loading datasets from MySQL...
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      </main>
+    </div>
+  </div>
+  <!-- COLUMN INSPECTOR MODAL -->
+  <div class="modal-backdrop" id="colInspectorModal" style="display: none;">
+    <div class="modal-dialog" style="max-width: 780px;">
+      <div class="modal-header">
+        <h3>Column Intelligence & Data Type Profiler</h3>
+        <button class="modal-close" id="btnCloseColInspector">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">Review detected data types. Identifiers (Phone, PIN, Sl No, UHID) are automatically prevented from distorting financial sums.</p>
+        <div class="table-responsive" style="max-height: 420px; overflow-y: auto;">
+          <table class="data-table" id="colInspectorTable">
+            <thead>
+              <tr>
+                <th>Column Name</th>
+                <th>Detected Type</th>
+                <th>Sample Values</th>
+                <th>Summary Metrics</th>
+              </tr>
+            </thead>
+            <tbody id="colInspectorTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UPLOAD MODAL -->
+  <div class="modal-backdrop" id="uploadModal" style="display: none;">
+    <div class="modal-dialog upload-modal-dialog" style="max-width: 740px;">
+      <div class="modal-header">
+        <div>
+          <h3 id="uploadModalTitle">Upload & Import ERP Excel File</h3>
+          <p class="modal-subtitle" id="uploadModalSubtitle" style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">Smart header detection, column profiling & live data preview</p>
+        </div>
+        <button class="modal-close" id="btnCloseUploadModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="modalUploadForm">
+          <input type="file" id="modalFileInput" accept=".xlsx, .xls, .csv" style="display: none;" onclick="this.value=null;" onchange="if(this.files && this.files.length > 0) inspectAndPreviewFile(this.files[0]);">
+          <div class="dropzone modal-dropzone" id="modalDropzone" onclick="const fi = document.getElementById('modalFileInput'); fi.value = ''; fi.click();">
+            <div class="dropzone-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="12" x2="12" y1="12" y2="18"/>
+                <line x1="9" x2="15" y1="15" y2="15"/>
+              </svg>
+            </div>
+            <h4 id="modalDropzoneTitle">Drag & Drop Excel File (.xlsx, .xls, .csv)</h4>
+            <p id="modalFileNameText">Click anywhere in this box or browse below to preview file</p>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnBrowseModalFile" onclick="event.stopPropagation(); const fi = document.getElementById('modalFileInput'); fi.value = ''; fi.click();">
+              Choose File from Computer
+            </button>
+          </div>
+
+          <div class="file-preview-panel" id="filePreviewPanel" style="display: none;">
+            <div class="preview-meta-card">
+              <div class="preview-file-header">
+                <div class="preview-file-icon">📊</div>
+                <div class="preview-file-details">
+                  <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--primary);">Selected File:</div>
+                  <h4 id="previewFileName" style="font-size: 1.15rem; font-weight: 800; word-break: break-all;">Filename.xlsx</h4>
+                  <div class="preview-tags" style="margin-top: 6px;">
+                    <span class="preview-tag" id="previewFileSize">0 KB</span>
+                    <span class="preview-tag" id="previewRowCount">0 Rows</span>
+                    <span class="preview-tag" id="previewColCount">0 Columns</span>
+                    <span class="preview-tag preview-tag-emerald" id="previewStatus">✓ Verified & Ready</span>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-secondary btn-sm" id="btnModalClearFile" onclick="clearSelectedFilePreview()">Change File</button>
+              </div>
+
+              <div class="preview-inputs-grid">
+                <div class="form-group">
+                  <label for="modalDatasetName">Report Title in MIS_DB:</label>
+                  <input type="text" id="modalDatasetName" placeholder="e.g. Hospital OPD Billing 2024">
+                </div>
+                <div class="form-group" id="modalSheetSelectGroup">
+                  <label for="modalSheetSelect">Target Excel Sheet:</label>
+                  <select id="modalSheetSelect">
+                    <option value="">Sheet1</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="preview-cols-section">
+                <label>Detected Columns & Auto-Mapped Data Types:</label>
+                <div class="preview-col-chips" id="modalColChips"></div>
+              </div>
+
+              <div class="preview-table-section">
+                <label>File Content Preview (First 5 Rows):</label>
+                <div class="table-responsive preview-table-wrap">
+                  <table class="data-table" id="modalDataTable">
+                    <thead id="modalThead"></thead>
+                    <tbody id="modalTbody"></tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="import-actions">
+                <button type="button" class="btn btn-secondary" id="btnCancelUpload">Cancel</button>
+                <button type="button" class="btn btn-primary" id="btnSubmitUpload">Import into MySQL MIS_DB</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="in-modal-progress" id="modalProgressSection" style="display: none;">
+            <div class="preview-meta-card" style="padding: 1.75rem;">
+              <div class="import-header">
+                <div class="import-icon-wrap" id="importIconWrap">
+                  <svg class="import-spinner" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+                  </svg>
+                </div>
+                <div>
+                  <h4 id="importProgressTitle">Parsing & Importing Dataset...</h4>
+                  <p id="importProgressSubtitle" style="font-size: 0.8rem; color: var(--text-muted);">Auto-detecting headers & columns</p>
+                </div>
+              </div>
+              <div class="import-progress-track">
+                <div class="import-progress-fill" id="importProgressFill" style="width: 15%;"></div>
+              </div>
+              <div class="import-steps">
+                <div class="import-step active" id="step1"><span class="step-dot"></span><span class="step-text">Header Extraction</span></div>
+                <div class="import-step" id="step2"><span class="step-dot"></span><span class="step-text">Anomaly Check</span></div>
+                <div class="import-step" id="step3"><span class="step-dot"></span><span class="step-text">Database Persist</span></div>
+                <div class="import-step" id="step4"><span class="step-dot"></span><span class="step-text">Analytics Indexing</span></div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAMPLE DATASET MODAL -->
+  <div class="modal-backdrop" id="sampleModal" style="display: none;">
+    <div class="modal-dialog" style="max-width: 580px;">
+      <div class="modal-header">
+        <h3>Pre-Loaded ERP Sample Datasets</h3>
+        <button class="modal-close" id="btnCloseSampleModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">Instant exploration with full simulated hospital and sales datasets:</p>
+        <div class="sample-grid">
+          <div class="sample-card" onclick="loadSampleDataset('hospital'); closeModals();">
+            <div class="sample-icon">🏥</div>
+            <h4>Hospital OPD Billing MIS</h4>
+            <p>15,000+ patient records with doctor performance, clinic footfalls & collections.</p>
+            <button class="btn btn-primary btn-sm">Load Hospital Sample</button>
+          </div>
+          <div class="sample-card" onclick="loadSampleDataset('sales'); closeModals();">
+            <div class="sample-icon">💼</div>
+            <h4>Commercial Distribution ERP</h4>
+            <p>B2B sales transactions, inventory orders, channels & gross margin data.</p>
+            <button class="btn btn-secondary btn-sm">Load Sales Sample</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js?v=15.1"></script>
+</body>
+</html>

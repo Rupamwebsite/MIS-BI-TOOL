@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📊 Executive Summary | Peerless Hospital MIS Platform</title>
+  <meta name="description" content="Peerless Hospital & B.K. Roy Research Centre - Enterprise Clinical Intelligence Platform">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <link rel="stylesheet" href="style.css?v=14.0">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- ======================================
+         PEERLESS HOSPITAL SIDEBAR NAVIGATION
+         ====================================== -->
+    <aside class="app-sidebar" id="appSidebar">
+
+      <!-- Hospital Brand Logo -->
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-logo" id="sidebarBrandLogo" title="Peerless Hospital • Click to Expand / Collapse">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+          </svg>
+        </div>
+        <div class="sidebar-brand-text">
+          <div class="brand-name">PEERLESS <span>HOSPITAL</span></div>
+          <span class="brand-sub">B.K. Roy Research Centre</span>
+        </div>
+        <!-- Collapse Toggle inside brand header -->
+        <button class="sidebar-toggle" id="sidebarToggle" title="Toggle sidebar (Boro/Chhoto)" aria-label="Toggle sidebar">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- DB Status & Dataset Selector -->
+      <div class="sidebar-dataset-info">
+        <div class="sidebar-db-badge" id="dbStatusBadge" title="MySQL MIS_DB Status">
+          <span class="status-dot"></span>
+          <span class="db-name">MySQL: MIS_DB</span>
+          <span class="db-meta" id="dbMeta">Online</span>
+        </div>
+        <div class="dataset-select-wrap">
+          <select class="sidebar-dataset-select" id="activeDatasetSelect" aria-label="Select Dataset">
+            <option value="">Select a Dataset...</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="sidebar-nav" aria-label="Dashboard Navigation">
+
+        <!-- Upload / Home -->
+        <div class="sidebar-section-label">WORKSPACE</div>
+        <a href="home.html" class="sidebar-nav-item" title="Home / Upload" id="navHome">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </span>
+          <span class="nav-label">Home / Upload</span>
+        </a>
+
+        <!-- Analytics Section -->
+        <div class="sidebar-section-label">ANALYTICS</div>
+
+        <a href="overview.html" class="sidebar-nav-item active" title="Executive Summary" id="navOverview">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/>
+            </svg>
+          </span>
+          <span class="nav-label">Executive Summary</span>
+        </a>
+
+        <a href="doctor.html" class="sidebar-nav-item" title="Doctor MIS Analytics" id="navDoctor">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M12 11v6"/><path d="M9 14h6"/>
+            </svg>
+          </span>
+          <span class="nav-label">Doctor MIS Analytics</span>
+          <span class="nav-badge" id="doctorCountBadge">0</span>
+        </a>
+
+        <a href="charts.html" class="sidebar-nav-item" title="Visual Analytics Gallery" id="navCharts">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/>
+            </svg>
+          </span>
+          <span class="nav-label">Visual Analytics Gallery</span>
+        </a>
+
+        <a href="pivot.html" class="sidebar-nav-item" title="Dynamic Pivot Matrix" id="navPivot">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 3v18"/><path d="M3 12h18"/>
+            </svg>
+          </span>
+          <span class="nav-label">Dynamic Pivot Matrix</span>
+        </a>
+
+        <div class="sidebar-section-label">TOOLS</div>
+
+        <a href="ask-bi.html" class="sidebar-nav-item" title="Ask BI Copilot" id="navAskBi">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+            </svg>
+          </span>
+          <span class="nav-label">Ask BI Copilot</span>
+        </a>
+
+        <a href="builder.html" class="sidebar-nav-item" title="Visual Studio Builder" id="navBuilder">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+            </svg>
+          </span>
+          <span class="nav-label">Visual Studio Builder</span>
+        </a>
+
+        <a href="anomalies.html" class="sidebar-nav-item" title="Audit & Anomaly Watch" id="navAnomalies">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/>
+            </svg>
+          </span>
+          <span class="nav-label">Audit & Anomaly Watch</span>
+          <span class="nav-badge" id="anomalyCountBadge">0</span>
+        </a>
+
+        <a href="datagrid.html" class="sidebar-nav-item" title="Data Explorer" id="navDatagrid">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 3h18v18H3zM3 9h18M3 15h18M9 3v18M15 3v18"/>
+            </svg>
+          </span>
+          <span class="nav-label">Data Explorer</span>
+        </a>
+
+      </nav>
+
+      <!-- Sidebar Footer Actions -->
+      <div class="sidebar-footer">
+        <button class="sidebar-footer-btn btn-upload" id="btnOpenUploadModal" title="Upload New Excel / CSV Dataset">
+          <span class="nav-icon">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/>
+            </svg>
+          </span>
+          <span class="nav-label">Upload Excel File</span>
+        </button>
+        <div class="sidebar-footer-row">
+          <button class="sidebar-footer-btn btn-compact" id="btnQuickSample" title="Load Sample Hospital Dataset">
+            <span class="nav-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>
+              </svg>
+            </span>
+            <span class="nav-label">Sample</span>
+          </button>
+          <button class="sidebar-footer-btn btn-compact" id="themeToggle" title="Toggle Dark/Light Mode">
+            <span class="nav-icon">
+              <svg class="sun-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
+              </svg>
+            </span>
+            <span class="nav-label">Theme</span>
+          </button>
+        </div>
+      </div>
+
+    </aside>
+    <div class="app-main">
+      <!-- Top Context-Aware Action Bar -->
+      <header class="top-bar" id="topBar">
+        <div class="topbar-left">
+          <button class="topbar-toggle-btn" id="topbarSidebarToggle" title="Toggle Sidebar" aria-label="Toggle Sidebar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="9" x2="9" y1="3" y2="21"/>
+            </svg>
+          </button>
+          <!-- Mobile Hamburger -->
+          <button class="mobile-menu-btn" id="mobileMenuToggle" title="Open Menu" aria-label="Open Menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/>
+            </svg>
+          </button>
+          <div class="topbar-title-wrap">
+            <h1 class="topbar-title" id="topBarTitle">📊 Executive Summary</h1>
+            <span class="topbar-subtitle">KPIs, Charts & Financial Insights</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Quick Header Action Buttons -->
+          <button class="btn btn-secondary btn-sm dashboard-only-btn" id="btnToggleColInspectorTop" title="Inspect & Review Detected Columns">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+            </svg>
+            Columns
+          </button>
+          <button class="btn btn-primary btn-sm dashboard-only-btn" id="btnDownloadExcelReportTop" title="Download Full Multi-Sheet ERP Excel Report">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>
+            </svg>
+            Excel
+          </button>
+          <button class="btn btn-secondary btn-sm dashboard-only-btn" id="btnDownloadPdfReportTop" title="Download Formatted Executive PDF Report">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/>
+            </svg>
+            PDF
+          </button>
+          <button class="btn btn-danger btn-sm dashboard-only-btn" id="btnDeleteDatasetTop" title="Delete Active Dataset from MIS_DB">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+      <main class="main-content">
+        <section class="dashboard-workspace" id="dashboardWorkspace" style="display: block;">
+        <!-- Top Metadata & Control Header -->
+        <div class="workspace-header">
+          <div class="report-meta">
+            <div class="domain-tag" id="domainTag">Hospital OPD & Clinical MIS</div>
+            <h2 id="datasetTitle">OPD_Billing_Executive_Report_2024.xlsx</h2>
+            <div class="meta-row">
+              <span id="metaRecords">0 Records</span>
+              <span class="dot-separator">•</span>
+              <span id="metaColumns">0 Columns</span>
+              <span class="dot-separator">•</span>
+              <span id="metaDateRange">All Time</span>
+              <span class="dot-separator">•</span>
+              <span id="metaSheetName">Sheet: Sheet1</span>
+            </div>
+          </div>
+
+          <div class="header-action-group" style="display:none;" aria-hidden="true">
+            <button class="btn btn-secondary btn-sm" id="btnToggleColInspector" title="Inspect & Review Detected Columns">Columns</button>
+            <button class="btn btn-primary btn-sm" id="btnDownloadExcelReport" title="Download Excel">Excel</button>
+            <button class="btn btn-secondary btn-sm" id="btnDownloadPdfReport" title="Download PDF">PDF</button>
+            <button class="btn btn-secondary btn-sm" id="btnPrintReport" title="Print">Print</button>
+            <button class="btn btn-danger btn-sm" id="btnDeleteDataset" title="Delete">Delete</button>
+          </div>
+        </div>
+
+        <!-- ==========================================
+             ADVANCED ERP CONTROL & FILTER TOOLBAR
+             ========================================== -->
+        <div class="advanced-filter-card">
+          <!-- Top Row: Metric & Dimension Switcher -->
+          <div class="metric-dim-switcher-row">
+            <div class="control-pair">
+              <label for="activeMetricSelect">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                Revenue / Value Metric:
+              </label>
+              <select id="activeMetricSelect" title="Select which column represents Financial Value/Revenue"></select>
+            </div>
+
+            <div class="control-pair">
+              <label for="activeDimensionSelect">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                Primary Breakdown Dimension:
+              </label>
+              <select id="activeDimensionSelect" title="Select primary grouping dimension"></select>
+            </div>
+
+            <!-- Date Range Presets -->
+            <div class="date-preset-pills">
+              <button class="pill-btn active" data-range="all">All Time</button>
+              <button class="pill-btn" data-range="this_month">This Month</button>
+              <button class="pill-btn" data-range="last_30">Last 30 Days</button>
+              <button class="pill-btn" data-range="custom">Custom</button>
+            </div>
+          </div>
+
+          <!-- Second Row: Date Inputs & Multi-Filter Accordion Trigger -->
+          <div class="filter-controls-row">
+            <div class="date-inputs" id="customDateInputs">
+              <div class="date-field">
+                <label>From:</label>
+                <input type="date" id="filterDateStart">
+              </div>
+              <div class="date-field">
+                <label>To:</label>
+                <input type="date" id="filterDateEnd">
+              </div>
+            </div>
+
+            <div class="quick-category-filter">
+              <label id="quickCatLabel">Filter By Dimension:</label>
+              <select id="filterDimension">
+                <option value="All">All Items</option>
+              </select>
+            </div>
+
+            <div class="filter-actions-wrap">
+              <button class="btn btn-secondary btn-sm" id="btnToggleAdvancedFilters">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                + Rule Filter
+              </button>
+              <button class="btn btn-primary btn-sm" id="btnApplyFilter">Apply Filter</button>
+              <button class="btn btn-secondary btn-sm" id="btnResetFilter">Reset All</button>
+            </div>
+          </div>
+
+          <!-- Expandable Multi-Condition Rule Builder -->
+          <div class="multi-rules-drawer" id="multiRulesDrawer" style="display: none;">
+            <div class="rules-header">
+              <h4>Advanced Multi-Column Filtering Rules</h4>
+              <button class="btn btn-secondary btn-sm" id="btnAddRuleRow">+ Add Condition</button>
+            </div>
+            <div class="rules-container" id="rulesContainer"></div>
+          </div>
+
+          <!-- Active Filter Tags / Chips -->
+          <div class="active-filter-chips" id="activeFilterChips" style="display: none;">
+            <span class="chips-label">Active Filters:</span>
+            <div class="chips-list" id="chipsList"></div>
+          </div>
+        </div>
+<div class="tab-content active" id="tab-overview">
+          <!-- Executive Dimension Quick Switcher Bar -->
+          <div class="dimension-pills-bar" id="dimensionPillsBar">
+            <div class="pills-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+              <span>Explore by Dimension:</span>
+            </div>
+            <div class="pills-scroll" id="dimensionPillsContainer"></div>
+          </div>
+
+          <!-- KPI Cards Grid -->
+          <div class="kpi-grid">
+            <div class="kpi-card accent-indigo">
+              <div class="kpi-header">
+                <span class="kpi-title" id="kpiLabel1">Total Financial Volume</span>
+                <div class="kpi-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+              </div>
+              <div class="kpi-value" id="kpiTotalValue">₹ 0.00</div>
+              <div class="kpi-footer">
+                <span class="kpi-subtext" id="kpiColName1">Cumulative metric sum</span>
+              </div>
+            </div>
+
+            <div class="kpi-card accent-emerald">
+              <div class="kpi-header">
+                <span class="kpi-title">Total Transactions</span>
+                <div class="kpi-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+              </div>
+              <div class="kpi-value" id="kpiTotalRecords">0</div>
+              <div class="kpi-footer">
+                <span class="kpi-subtext" id="kpiAvgRecords">Valid row entries (excluding total rows)</span>
+              </div>
+            </div>
+
+            <div class="kpi-card accent-sky">
+              <div class="kpi-header">
+                <span class="kpi-title">Average Ticket Size</span>
+                <div class="kpi-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                </div>
+              </div>
+              <div class="kpi-value" id="kpiAvgValue">₹ 0.00</div>
+              <div class="kpi-footer">
+                <span class="kpi-subtext">Mean per transaction</span>
+              </div>
+            </div>
+
+            <div class="kpi-card accent-amber">
+              <div class="kpi-header">
+                <span class="kpi-title">Max Single Transaction</span>
+                <div class="kpi-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+              </div>
+              <div class="kpi-value" id="kpiMaxValue">₹ 0.00</div>
+              <div class="kpi-footer">
+                <span class="kpi-subtext">Peak recorded transaction</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- AI Executive Insights Banner -->
+          <div class="insights-card">
+            <div class="insights-header">
+              <div class="insights-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4"/><path d="m4.93 4.93 2.83 2.83"/><path d="M2 12h4"/><path d="m4.93 19.07 2.83-2.83"/><path d="M12 22v-4"/><path d="m19.07 19.07-2.83-2.83"/><path d="M22 12h-4"/><path d="m19.07 4.93-2.83 2.83"/></svg>
+                <h3>Automated ERP MIS Executive Findings</h3>
+              </div>
+              <span class="pulse-live">REAL-TIME ANALYSIS</span>
+            </div>
+            <div class="insights-list" id="insightsList"></div>
+          </div>
+
+          <!-- Overview Split Charts: Dual-Axis Combo & Donut Share -->
+          <div class="chart-row">
+            <div class="chart-card flex-2">
+              <div class="card-header">
+                <div>
+                  <h3 id="comboChartTitle">Dual-Axis Trend: Financial Volume vs Transaction Count</h3>
+                  <span class="card-caption">Bars: Total Value (Left Axis) | Line: Volume Count (Right Axis)</span>
+                </div>
+                <div class="chart-tools">
+                  <button class="btn-tool" onclick="downloadChartImage('overviewTrendChart', 'Trend_Chart.png')" title="Save Chart as PNG">📷 PNG</button>
+                </div>
+              </div>
+              <div class="chart-container" style="height: 330px;">
+                <canvas id="overviewTrendChart"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-card flex-1">
+              <div class="card-header">
+                <div>
+                  <h3 id="overviewDonutTitle">Dimension Share</h3>
+                  <span class="card-caption">Click a slice to drill-down filter!</span>
+                </div>
+                <div class="chart-tools">
+                  <button class="btn-tool" onclick="downloadChartImage('overviewDonutChart', 'Share_Donut.png')" title="Save Chart as PNG">📷 PNG</button>
+                </div>
+              </div>
+              <div class="chart-container" style="height: 330px;">
+                <canvas id="overviewDonutChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        </section>
+      </main>
+    </div>
+  </div>
+  <!-- COLUMN INSPECTOR MODAL -->
+  <div class="modal-backdrop" id="colInspectorModal" style="display: none;">
+    <div class="modal-dialog" style="max-width: 780px;">
+      <div class="modal-header">
+        <h3>Column Intelligence & Data Type Profiler</h3>
+        <button class="modal-close" id="btnCloseColInspector">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">Review detected data types. Identifiers (Phone, PIN, Sl No, UHID) are automatically prevented from distorting financial sums.</p>
+        <div class="table-responsive" style="max-height: 420px; overflow-y: auto;">
+          <table class="data-table" id="colInspectorTable">
+            <thead>
+              <tr>
+                <th>Column Name</th>
+                <th>Detected Type</th>
+                <th>Sample Values</th>
+                <th>Summary Metrics</th>
+              </tr>
+            </thead>
+            <tbody id="colInspectorTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UPLOAD MODAL -->
+  <div class="modal-backdrop" id="uploadModal" style="display: none;">
+    <div class="modal-dialog upload-modal-dialog" style="max-width: 740px;">
+      <div class="modal-header">
+        <div>
+          <h3 id="uploadModalTitle">Upload & Import ERP Excel File</h3>
+          <p class="modal-subtitle" id="uploadModalSubtitle" style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">Smart header detection, column profiling & live data preview</p>
+        </div>
+        <button class="modal-close" id="btnCloseUploadModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="modalUploadForm">
+          <input type="file" id="modalFileInput" accept=".xlsx, .xls, .csv" style="display: none;" onclick="this.value=null;" onchange="if(this.files && this.files.length > 0) inspectAndPreviewFile(this.files[0]);">
+          <div class="dropzone modal-dropzone" id="modalDropzone" onclick="const fi = document.getElementById('modalFileInput'); fi.value = ''; fi.click();">
+            <div class="dropzone-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="12" x2="12" y1="12" y2="18"/>
+                <line x1="9" x2="15" y1="15" y2="15"/>
+              </svg>
+            </div>
+            <h4 id="modalDropzoneTitle">Drag & Drop Excel File (.xlsx, .xls, .csv)</h4>
+            <p id="modalFileNameText">Click anywhere in this box or browse below to preview file</p>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnBrowseModalFile" onclick="event.stopPropagation(); const fi = document.getElementById('modalFileInput'); fi.value = ''; fi.click();">
+              Choose File from Computer
+            </button>
+          </div>
+
+          <div class="file-preview-panel" id="filePreviewPanel" style="display: none;">
+            <div class="preview-meta-card">
+              <div class="preview-file-header">
+                <div class="preview-file-icon">📊</div>
+                <div class="preview-file-details">
+                  <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--primary);">Selected File:</div>
+                  <h4 id="previewFileName" style="font-size: 1.15rem; font-weight: 800; word-break: break-all;">Filename.xlsx</h4>
+                  <div class="preview-tags" style="margin-top: 6px;">
+                    <span class="preview-tag" id="previewFileSize">0 KB</span>
+                    <span class="preview-tag" id="previewRowCount">0 Rows</span>
+                    <span class="preview-tag" id="previewColCount">0 Columns</span>
+                    <span class="preview-tag preview-tag-emerald" id="previewStatus">✓ Verified & Ready</span>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-secondary btn-sm" id="btnModalClearFile" onclick="clearSelectedFilePreview()">Change File</button>
+              </div>
+
+              <div class="preview-inputs-grid">
+                <div class="form-group">
+                  <label for="modalDatasetName">Report Title in MIS_DB:</label>
+                  <input type="text" id="modalDatasetName" placeholder="e.g. Hospital OPD Billing 2024">
+                </div>
+                <div class="form-group" id="modalSheetSelectGroup">
+                  <label for="modalSheetSelect">Target Excel Sheet:</label>
+                  <select id="modalSheetSelect">
+                    <option value="">Sheet1</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="preview-cols-section">
+                <label>Detected Columns & Auto-Mapped Data Types:</label>
+                <div class="preview-col-chips" id="modalColChips"></div>
+              </div>
+
+              <div class="preview-table-section">
+                <label>File Content Preview (First 5 Rows):</label>
+                <div class="table-responsive preview-table-wrap">
+                  <table class="data-table" id="modalDataTable">
+                    <thead id="modalThead"></thead>
+                    <tbody id="modalTbody"></tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="import-actions">
+                <button type="button" class="btn btn-secondary" id="btnCancelUpload">Cancel</button>
+                <button type="button" class="btn btn-primary" id="btnSubmitUpload">Import into MySQL MIS_DB</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="in-modal-progress" id="modalProgressSection" style="display: none;">
+            <div class="preview-meta-card" style="padding: 1.75rem;">
+              <div class="import-header">
+                <div class="import-icon-wrap" id="importIconWrap">
+                  <svg class="import-spinner" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+                  </svg>
+                </div>
+                <div>
+                  <h4 id="importProgressTitle">Parsing & Importing Dataset...</h4>
+                  <p id="importProgressSubtitle" style="font-size: 0.8rem; color: var(--text-muted);">Auto-detecting headers & columns</p>
+                </div>
+              </div>
+              <div class="import-progress-track">
+                <div class="import-progress-fill" id="importProgressFill" style="width: 15%;"></div>
+              </div>
+              <div class="import-steps">
+                <div class="import-step active" id="step1"><span class="step-dot"></span><span class="step-text">Header Extraction</span></div>
+                <div class="import-step" id="step2"><span class="step-dot"></span><span class="step-text">Anomaly Check</span></div>
+                <div class="import-step" id="step3"><span class="step-dot"></span><span class="step-text">Database Persist</span></div>
+                <div class="import-step" id="step4"><span class="step-dot"></span><span class="step-text">Analytics Indexing</span></div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAMPLE DATASET MODAL -->
+  <div class="modal-backdrop" id="sampleModal" style="display: none;">
+    <div class="modal-dialog" style="max-width: 580px;">
+      <div class="modal-header">
+        <h3>Pre-Loaded ERP Sample Datasets</h3>
+        <button class="modal-close" id="btnCloseSampleModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">Instant exploration with full simulated hospital and sales datasets:</p>
+        <div class="sample-grid">
+          <div class="sample-card" onclick="loadSampleDataset('hospital'); closeModals();">
+            <div class="sample-icon">🏥</div>
+            <h4>Hospital OPD Billing MIS</h4>
+            <p>15,000+ patient records with doctor performance, clinic footfalls & collections.</p>
+            <button class="btn btn-primary btn-sm">Load Hospital Sample</button>
+          </div>
+          <div class="sample-card" onclick="loadSampleDataset('sales'); closeModals();">
+            <div class="sample-icon">💼</div>
+            <h4>Commercial Distribution ERP</h4>
+            <p>B2B sales transactions, inventory orders, channels & gross margin data.</p>
+            <button class="btn btn-secondary btn-sm">Load Sales Sample</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js?v=14.0"></script>
+</body>
+</html>
